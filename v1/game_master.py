@@ -2,12 +2,13 @@
 game_master.py (Version 1)  -  the SIMPLE approach: the LLM does everything.
 """
 
-import os                          
+import os        
+import time                  
 from dotenv import load_dotenv     
 
 load_dotenv()                      
 
-MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 
 SYSTEM_PROMPT = """
@@ -46,7 +47,15 @@ def ask_game_master(history, user_message):
     from google import genai            
     from google.genai import types   
 
-    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"))
+    
+
+    client = genai.Client(
+        api_key=os.getenv("GEMINI_API_KEY"),
+        http_options=types.HttpOptions(timeout=20000),   # give up after 20 seconds
+    )
+    for m in client.models.list():
+        if "flash" in m.name:
+            print(m.name)
 
     contents = []
     for m in history:
@@ -56,9 +65,17 @@ def ask_game_master(history, user_message):
     contents.append(types.Content(role="user", parts=[types.Part(text=user_message)]))
 
 
-    response = client.models.generate_content(
-        model=MODEL,
-        contents=contents,   
-        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT, temperature=0.7),
-    )
-    return (response.text or "").strip()  
+    for attempt in range(3):
+        try:
+            response = client.models.generate_content(
+                model=MODEL,
+                contents=contents,
+                config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT, temperature=0.7),
+            )
+            return (response.text or "").strip()
+        except Exception as exc:
+            if "503" in str(exc) and attempt < 2:   # busy server and we still have tries left
+                time.sleep(2 * (attempt + 1))        # wait 2 seconds, then 4 seconds
+                continue
+            raise                                    # any other error, or last try: give up 
+    
