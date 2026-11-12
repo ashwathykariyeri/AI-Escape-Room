@@ -1,0 +1,93 @@
+{
+  "title": "The Locked Library (Reliable Edition)",
+  "intro": "You wake up on a cold wooden floor inside a locked library. Dust drifts through the lamplight. You can make out a desk, a bookshelf, a large painting, a small locked drawer built into the wall unit, and a heavy door with a four-digit keypad. The only way out is to solve the room's puzzles. What do you do?",
+
+  "secrets": {
+    "drawer_code": "4173",
+    "door_code": "1925"
+  },
+
+  "objects": {
+    "desk":      {"name": "desk",      "aliases": ["writing desk", "desk", "table", "notebook", "papers"]},
+    "bookshelf": {"name": "bookshelf", "aliases": ["bookshelf", "bookcase", "shelf", "shelves", "books", "book", "spines"]},
+    "painting":  {"name": "painting",  "aliases": ["painting", "portrait", "picture", "frame", "plaque"]},
+    "drawer":    {"name": "drawer",    "aliases": ["drawer", "combination lock", "dials"]},
+    "safe":      {"name": "wall safe", "aliases": ["wall safe", "safe", "vault", "strongbox"]},
+    "door":      {"name": "door",      "aliases": ["door", "exit", "keypad", "keypad lock", "way out"]}
+  },
+
+  "initially_visible_objects": ["desk", "bookshelf", "painting", "drawer", "door"],
+
+  "items": {
+    "magnifying_glass": {"name": "magnifying glass", "aliases": ["magnifying glass", "magnifier", "glass", "lens"],
+                         "description": "A brass-rimmed magnifying glass. Small writing becomes easy to read through it."},
+    "brass_key":        {"name": "brass key", "aliases": ["brass key", "small key", "key"],
+                         "description": "A small brass key with a worn, tarnished head."}
+  },
+
+  "messages": {
+    "desk_with_glass": "The desk is covered in dust and old papers. A brass-rimmed magnifying glass lies on a notebook. A note in the notebook reads: 'Four books are out of place. Their secret is too small for tired eyes.'",
+    "desk_without_glass": "The desk holds dusty papers and a notebook. The note inside reads: 'Four books are out of place. Their secret is too small for tired eyes.'",
+    "bookshelf_no_glass": "Most books are neatly arranged, but four have been pushed slightly forward. Each of those spines carries tiny handwriting, far too small to read with the naked eye.",
+    "bookshelf_with_glass": "Through the magnifying glass you can read the handwritten numbers on the four protruding spines. From left to right they are: 4, 1, 7, 3.",
+    "painting": "A large portrait of a stern librarian in a heavy gold frame. A small brass plaque reads: 'Founder of the Alder Library, 1925.' The frame hangs slightly crooked.",
+    "painting_moved": "The portrait of the stern librarian hangs aside on its hinge, exposing a wall safe. The brass plaque still reads: 'Founder of the Alder Library, 1925.'",
+    "move_painting": "You swing the heavy painting aside on its hinge. Behind it is a small iron wall safe with a keyhole.",
+    "move_painting_again": "The painting already hangs aside, leaving the wall safe exposed.",
+    "move_other": "You push at it, but it does not budge.",
+
+    "drawer_locked": "A small wooden drawer fitted with a four-dial combination lock. It is locked.",
+    "drawer_open_with_key": "The drawer stands open. A small brass key lies inside.",
+    "drawer_open_empty": "The drawer stands open and is now empty.",
+    "drawer_unlocked_now": "The four dials click into place and the drawer slides open. Inside lies a small brass key.",
+    "drawer_wrong_code": "The dials turn, but the lock does not open. That was the wrong combination.",
+    "drawer_already_open": "The drawer is already open.",
+    "open_drawer_locked": "The drawer is locked with a four-dial combination lock.",
+
+    "safe_locked": "A compact iron safe set into the wall. It has a keyhole but no dial.",
+    "safe_open": "The safe stands open. The folded note inside reads: 'The way out answers to the year this library was founded.'",
+    "safe_unlocked_now": "The brass key turns with a heavy clunk and the safe swings open. Inside is a folded note: 'The way out answers to the year this library was founded.'",
+    "open_safe_locked": "The safe is locked. It has a keyhole.",
+
+    "door_locked": "A heavy oak door with a four-digit keypad. It is locked.",
+    "door_wrong_code": "The keypad beeps angrily. The door stays locked.",
+    "door_escaped": "The keypad chimes, the bolts slide back, and the heavy door swings open. Cool night air rushes in. You have escaped the library!",
+    "open_door_locked": "The door is locked. A four-digit keypad is its only lock.",
+
+    "key_wrong_door": "The brass key does not fit anywhere on the door; it only has a keypad.",
+    "key_wrong_drawer": "The drawer has a combination lock, not a keyhole.",
+    "glass_nothing": "Looking through the magnifying glass shows you nothing new there.",
+    "use_nothing": "Using that there has no effect.",
+
+    "take_ok": "You take the {item}.",
+    "already_have": "You already have that.",
+    "cannot_take": "There is nothing like that here for you to take.",
+    "cannot_take_object": "That is too big or fixed in place to take.",
+    "not_carrying": "You are not carrying that.",
+    "not_visible": "You don't see anything like that here.",
+    "item_examine_not_carried": "You don't have that with you.",
+
+    "inventory_empty": "You are not carrying anything.",
+    "inventory_list": "You are carrying: {items}.",
+
+    "which_lock": "Where do you want to try that code? (for example, the drawer or the door)",
+    "code_missing": "Which code do you want to enter?",
+    "no_lock_here": "There is no lock there that takes a code.",
+    "open_nothing": "There is nothing there to open.",
+    "open_painting": "The painting does not open.",
+    "examine_what": "What do you want to examine?",
+    "game_over": "You have already escaped! Press 'Restart game' to play again.",
+
+    "invalid": "That is not something you can do in this room. Try examining, taking, using, opening or moving things, or type 'hint' or 'help'.",
+    "help": "You can type things like: 'examine the desk', 'take the key', 'use the magnifying glass on the bookshelf', 'move the painting', 'enter 1234 on the drawer', 'inventory', or 'hint'.",
+
+    "hint_1": "Hint: start by looking closely at the things on the desk.",
+    "hint_2": "Hint: something from the desk could help you read very small writing. Try taking it.",
+    "hint_3": "Hint: the bookshelf has details you can only see with the right tool in your hands.",
+    "hint_4": "Hint: four numbers, read from left to right, might open a four-dial lock.",
+    "hint_5": "Hint: something inside the drawer is worth carrying.",
+    "hint_6": "Hint: the large painting might be hiding something. Try moving it.",
+    "hint_7": "Hint: the key you found needs a lock to match. Is there a keyhole somewhere?",
+    "hint_8": "Hint: combine the note's riddle with a date you saw earlier, then try it on the keypad."
+  }
+}
