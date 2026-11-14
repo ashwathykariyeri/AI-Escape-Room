@@ -1,7 +1,7 @@
 # test_adversarial.py - the five challenge situations from the assignment (plus extras).
 # Every test proves two things: (1) the attack is refused, (2) the game state is NOT corrupted.
 from helpers import new_engine, say, stable
-from engine import Action, Outcome
+from engine import Outcome
 from narrator import narration_is_safe
 
 
