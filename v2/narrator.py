@@ -14,7 +14,7 @@ from typing import Tuple
 
 from engine import Action, GameEngine, Outcome
 import llm_client
-
+LAST_BLOCKED = ""   # the most recent narration the guard rejected (for debugging)
 NARRATOR_SYSTEM = (
     "You are the Game Master of a small text escape room. Rewrite the FACTS as 2-4 sentences of "
     "atmospheric narration in second person. Rules: use ONLY the facts given; do not add objects, "
@@ -61,6 +61,7 @@ def narrate(outcome: Outcome, action: Action, engine: GameEngine, use_llm: bool 
       "guard-blocked" - Gemini text was unsafe, factual text used instead
       "llm-error"     - Gemini call failed, factual text used instead
     """
+    global LAST_BLOCKED
     plain = outcome.text
     # Short system messages (help, inventory, hints) are shown exactly as written.
     if outcome.event in ("help", "inventory", "hint", "game_over", "invalid_action"):
@@ -74,4 +75,5 @@ def narrate(outcome: Outcome, action: Action, engine: GameEngine, use_llm: bool 
         return plain, "llm-error"
     if text and narration_is_safe(text, outcome, engine):
         return text, "gemini"
+    LAST_BLOCKED = text or ""
     return plain, "guard-blocked"
